@@ -1,0 +1,21 @@
+{
+  "remotes": [
+    "https://raw.githubusercontent.com"
+  ],
+  "name": "mediator",
+  "repo": "pixbi/mediator",
+  "version": "0.0.0",
+  "dependencies": {
+  },
+  "scripts": [
+    "app/index.js"
+  ],
+  "styles": [
+  ],
+  "templates": [
+  ],
+  "images": [
+  ],
+  "fonts": [
+  ]
+}
