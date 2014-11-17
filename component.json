@@ -1,21 +1,13 @@
 {
-  "remotes": [
-    "https://raw.githubusercontent.com"
-  ],
-  "name": "mediator",
-  "repo": "pixbi/mediator",
-  "version": "0.0.0",
-  "dependencies": {
-  },
-  "scripts": [
-    "app/index.js"
-  ],
-  "styles": [
-  ],
-  "templates": [
-  ],
-  "images": [
-  ],
-  "fonts": [
-  ]
+    "styles": [],
+    "images": [],
+    "scripts": [
+        "app/modules/index.js"
+    ],
+    "templates": [],
+    "dependencies": {},
+    "name": "mediator",
+    "version": "0.0.1",
+    "repo": "pixbi/mediator",
+    "fonts": []
 }
