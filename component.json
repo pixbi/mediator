@@ -2,12 +2,12 @@
     "styles": [],
     "images": [],
     "scripts": [
-        "app/index.js"
+        "app/modules/index.js"
     ],
     "templates": [],
     "dependencies": {},
     "name": "mediator",
-    "version": "0.0.0",
+    "version": "0.0.1",
     "repo": "pixbi/mediator",
     "fonts": []
 }
