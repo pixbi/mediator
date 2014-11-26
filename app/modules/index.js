@@ -10,23 +10,27 @@ function () {
     }
 
     channels[channel].push({ context : this, callback : fn });
-    return this;
   }
 
-  function publish (channel, args) {
+  function publish (channel) {
     if (! channels[channel]) {
       return false;
     }
 
-    var subscription;
-    var i = channels[channel].length;
+    var i, l;
 
-    while (i-- > 0) {
-      subscription = channels[channel][i];
-      subscription.callback.call(subscription.context, args);
+    // Take special care of arguments, with first argument dropped.
+    var argLength = arguments.length - 1;
+    var args = new Array(argLength);
+    for (i = 1, l = arguments.length; i < l; i++) {
+      args[i - 1] = arguments[i];
     }
 
-    return this;
+    // Call all subscribers
+    for (i = 0, l = channels[channel].length; i < l; i++) {
+      var subscription = channels[channel][i];
+      subscription.callback.apply(subscription.context, args);
+    }
   }
 
   return {
