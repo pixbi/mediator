@@ -4,10 +4,11 @@
     "scripts": [
         "app/modules/index.js"
     ],
+    "modes": null,
     "templates": [],
     "dependencies": {},
     "name": "mediator",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "repo": "pixbi/mediator",
     "fonts": []
 }
