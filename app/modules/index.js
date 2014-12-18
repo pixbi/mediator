@@ -10,6 +10,7 @@ function () {
     }
 
     channels[channel].push({ context : this, callback : fn });
+    return this;
   }
 
   function publish (channel) {
@@ -31,6 +32,8 @@ function () {
       var subscription = channels[channel][i];
       subscription.callback.apply(subscription.context, args);
     }
+
+    return this;
   }
 
   return {
