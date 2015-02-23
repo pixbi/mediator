@@ -1,43 +1,63 @@
-define('mediator', [],
-function () {
+define('mediator', [], function () {
   'use strict';
 
-  var channels = {};
+  var channels = new Map();
+  var idProvider = 0;
 
-  function subscribe (channel, fn) {
-    if (! channels[channel]) {
-      channels[channel] = [];
+  function spliceArray(arr, index) {
+    if (index < (arr.length - 1)) {
+      arr[index] = arr.pop();
+    } else {
+      arr.pop()
     }
-
-    channels[channel].push({ context : this, callback : fn });
-    return this;
   }
 
-  function publish (channel) {
-    if (! channels[channel]) {
-      return false;
+  function publish(name, data) {
+    var channel = channels.get(name);
+    
+    if (! channel) return;
+
+    for (var i = 0, il = channel.length; i < il; i++) {
+      channel[i](data);
+    }
+  }
+
+  function subscribe(name, func) {
+    func.id = ++idProvider;
+
+    if (! channels.has(name)) {
+      channels.set(name, []);
     }
 
-    var i, l;
+    channels.get(name).push(func);
 
-    // Take special care of arguments, with first argument dropped.
-    var argLength = arguments.length - 1;
-    var args = new Array(argLength);
-    for (i = 1, l = arguments.length; i < l; i++) {
-      args[i - 1] = arguments[i];
+    return idProvider;
+  }
+
+  function unsubscribe() {
+    var channel = channels.get(name);
+    var result = false;
+
+    if (! channel) {
+      throw new Error('No channel to unsubscribe from.');
     }
 
-    // Call all subscribers
-    for (i = 0, l = channels[channel].length; i < l; i++) {
-      var subscription = channels[channel][i];
-      subscription.callback.apply(subscription.context, args);
+    for (var i = 0, il = channel.length; i < il; i++) {
+      if (channel[i].id === id) {
+        spliceArray(channel, i);
+        result = true;
+        break;
+      }
     }
 
-    return this;
+    if (! result) {
+      throw new Error('No listener was unsubscribed.');
+    }
   }
 
   return {
-    publish   : publish,
-    subscribe : subscribe
+    publish: publish,
+    subscribe: subscribe,
+    unsubscribe: unsubscribe
   };
 });
